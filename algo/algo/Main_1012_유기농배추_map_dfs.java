@@ -1,3 +1,4 @@
+package algo;
 
 /*
  * map, linked로도 풀것 
