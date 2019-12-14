@@ -1,33 +1,35 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main_14501_퇴사 {
-	static int n, t[],p[],pay,max;
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
-		t = new int[n];
-		p = new int[n];
-		for (int i = 0; i < n; i++) {
-			t[i] = sc.nextInt();
-			p[i] = sc.nextInt();
-		}
-		pay = 0;
-		max = Integer.MIN_VALUE;
-		work(0,0,0);
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+ 
+        int N = Integer.parseInt(br.readLine());
+        int[] T = new int[N+2];
+        int[] P = new int[N+2];
+        int[] dp = new int[N+2];
+ 
+        for(int i=1; i<=N; i++) {
+            st = new StringTokenizer(br.readLine());
+            T[i] = Integer.parseInt(st.nextToken());
+            P[i] = Integer.parseInt(st.nextToken());
+        }
+        
+        // dp 시작
+        for(int i=N; i>0; i--) {
+            int day = i + T[i];     // i번째 날의 상담기간
+ 
+            if(day <= N+1) 
+                dp[i] = Math.max(P[i] + dp[day], dp[i+1]);
+            else
+                // 상담일 초과
+                dp[i] = dp[i+1];
+        }
+ 
+         System.out.println(dp[1]);
 	}
-	static void work(int now, int s, int next) {
-		if(next == n) {
-			max = Math.max(max, s);
-			return;
-		}else if() {
-			
-		}
-		
-		else {
-			
-				work(now+t[now],pay+p[now],next+1);
-				work(next,p[now],next+1);
-		
-		}
-	}
+	
 }
+
