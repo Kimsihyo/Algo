@@ -6,6 +6,7 @@ import java.util.Scanner;
 // 조합 nCr=nPr/r! ex)6C3=6*5*4/3*2*1=20
 public class Combination {
 	public static int n,r,caseCount,data[];
+	
 	public static void Combination(int before,int count) {
 		if(count==r) {
 			for(int i=0;i<r;i++) {
