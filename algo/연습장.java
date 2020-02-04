@@ -1,35 +1,64 @@
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.io.*;
+
+import java.util.*;
+
 
 public class 연습장 {
-
+	static int n,m,arr[] , ans[];
+	static boolean arr2[];
 	public static void main(String[] args) throws Exception {
-
 		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		int nn = 1000-n;
-		int[] money = { 500, 100, 50, 10, 5, 1 };
-		int cnt = 0;
-		int ans = 0;
-		for (int i = 0; i < 6; i++) {
-			cnt = 0;
-			if(nn == 0) break;
-			for (int j = 0;; j++) {
-				if(nn < money[i]*j) {
-					break;
-				}
-				cnt = j;
-			}
-			ans = ans + cnt;
-			nn = nn - (money[i]*(cnt));
+		n = sc.nextInt();
+		m = sc.nextInt();
+		arr = new int[n];
+		ans = new int[n];
+		arr2 = new boolean[n];
+		for (int i = 0; i < n; i++) {
+			arr[i] = i+1;
 		}
-		System.out.println(ans);
-
+//		System.out.println(Arrays.toString(arr));
+		perm(0,0);
 	}
-
+	static void perm(int idx, int step) {
+		if(step == m) {
+			for (int i = 0; i < n; i++) {
+				if(arr2[i]) {
+					System.out.print(ans[i] + " ");								
+				}
+			}
+			System.out.println();
+			return;
+		}
+		
+		for (int i = 0; i < n; i++) {
+			if(!arr2[i]) {
+				arr2[i] = true;
+				ans[step] = arr[i];
+				perm(i,step+1);
+				arr2[i] = false;
+			}
+			
+		}
+	}
 }
+
+//	static void perm(int step) {
+//		if(r == step) {
+//			for (int i = 0; i < r; i++) {
+//				System.out.print(arr2[i]+" ");
+//			}
+//			System.out.println();
+//			return;
+//		}else {
+//			for (int i = 0; i < n; i++) {
+//				if(!chk[i]) {
+//					arr2[step]= arr[i];
+//					chk[i] = true;
+//					perm(step+1);
+//					chk[i] = false;
+//				}
+//			}
+//		}
+//	}
+//}
