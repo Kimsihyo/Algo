@@ -22,26 +22,23 @@ public class 연습장 {
 	}
 	static void perm(int idx, int step) {
 		if(step == m) {
-			for (int i = 0; i < n; i++) {
-				if(arr2[i]) {
-					System.out.print(ans[i] + " ");								
-				}
+			for (int i = 0; i < m; i++) {
+				if(ans[i] != 0)
+				System.out.print(i + " ");								
 			}
 			System.out.println();
 			return;
 		}
 		
-		for (int i = 0; i < n; i++) {
-			if(!arr2[i]) {
-				arr2[i] = true;
-				ans[step] = arr[i];
-				perm(i,step+1);
-				arr2[i] = false;
+		for (int i = idx; i < n; i++) {
+				ans[step] = 1;
+				perm(i+1,step+1);
+				ans[step] = 0;
 			}
 			
 		}
 	}
-}
+
 
 //	static void perm(int step) {
 //		if(r == step) {
