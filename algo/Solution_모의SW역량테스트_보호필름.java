@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Solution_보호필름 {
+public class Solution_모의SW역량테스트_보호필름 {
 	static int D,W,K,map[][],tmap[][],ans,arr[],arr2[];
 	static boolean[] chk;
 	public static void main(String[] args) {
@@ -88,57 +88,6 @@ public class Solution_보호필름 {
 				}
 			}
 			
-//			if(step == 1) {
-//				for (int i = 0; i < W; i++) {
-//					tmap[arr2[0]-1][i] = 0;
-//				}
-//				if(check()) {
-//					ans = 1;
-//					return;
-//				}
-//				for (int i = 0; i < W; i++) {
-//					tmap[arr2[0]-1][i] = 1;
-//				}
-//				if(check()) {
-//					ans = 1;
-//					return;
-//				}
-//			}
-//			if(step == 2) {
-//				for (int i = 0; i < W; i++) {
-//					tmap[arr2[0]-1][i] = 0;
-//					tmap[arr2[1]-1][i] = 0;
-//					}
-//				
-//				if(check()) {
-//					ans = 2;
-//					return;
-//				}
-//				for (int i = 0; i < W; i++) {
-//					tmap[arr2[0]-1][i] = 1;
-//					tmap[arr2[1]-1][i] = 1;
-//				}
-//				if(check()) {
-//					ans = 2;
-//					return;
-//				}
-//				for (int i = 0; i < W; i++) {
-//					tmap[arr2[0]-1][i] = 1;
-//					tmap[arr2[1]-1][i] = 0;
-//				}
-//				if(check()) {
-//					ans = 2;
-//					return;
-//				}
-//				for (int i = 0; i < W; i++) {
-//					tmap[arr2[0]-1][i] = 0;
-//					tmap[arr2[1]-1][i] = 1;
-//				}
-//				if(check()) {
-//					ans = 2;
-//					return;
-//				}
-//			}
 			return;
 		}
 			

@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class Solution_디저트카페 {
+public class Solution_모의SW역량테스트_디저트카페 {
 	static int di[] = {1,1,-1,-1}, dj[] = {1,-1,-1,1},n,map[][],max;
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
