@@ -26,7 +26,7 @@ public class Main_3190_뱀 {
 						int x = temp[0];
 						int y = temp[1];
 						if(x<0 || y<0 || x>=n || y>=n) {
-							break
+							break;
 						}
 						if(map[x][y+1] == 1) {
 							list.add(new int[] {x,y+1});
