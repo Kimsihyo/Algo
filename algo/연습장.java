@@ -1,6 +1,6 @@
-package 모바일리더;
 
-public class 모바일리더_2번 {
+
+public class 연습장 {
 
    public static void main(String[] args) {
       // TODO Auto-generated method stub
