@@ -1,104 +1,84 @@
 package algo;
-
+import java.io.*;
 import java.util.*;
 
-
 public class Main_14502_연구소 {
-	public static class Pair {
-		int x;
-		int y;
-		
-		Pair(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-	static int n, m;
-	static int[][] a = new int[10][10];
-	static int[][] b = new int[10][10];
-	static int[] dx = { 0, 0, 1, -1 };
-	static int[] dy = { 1, -1, 0, 0 };
+	static int[] di = { 0, 1, 0, -1 }, dj = { 1, 0, -1, 0 };
+	static int n, m, map[][];
+	static int virusCnt, wallCnt;
+	static boolean visit[][];
+	static int ans;
 
-	static int bfs() {
-		Queue<Pair> q = new LinkedList<Pair>();
+	public static void main(String[] args) throws Exception{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		map = new int[n][m];
+		int totalCnt = n * m;
+		wallCnt = 3;
+		virusCnt = 0;
 		for (int i = 0; i < n; i++) {
+			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < m; j++) {
-				b[i][j] = a[i][j];
-				if (b[i][j] == 2) {
-					q.add(new Pair(i, j));
+				map[i][j] = Integer.parseInt(st.nextToken());
+				if (map[i][j] == 1) {// 벽!!!!
+					wallCnt++;
 				}
 			}
-		}
-		while (!q.isEmpty()) {
-			Pair p = q.remove();
-			int x = p.x;
-			int y = p.y;
-			for (int k = 0; k < 4; k++) {
-				int nx = x + dx[k];
-				int ny = y + dy[k];
-				if (0 <= nx && nx < n && 0 <= ny && ny < m) {
-					if (b[nx][ny] == 0) {
-						b[nx][ny] = 2;
-						q.add(new Pair(nx, ny));
+		} // end loop
+			// 벽세우고 > 조합으로
+			// 바이러스 퍼트림 > 조건에 맞춰서 4방으로 2(바이러스)를 퍼트림
+			// 최대 영역 구하기 > 무조건 다 돌려봐야함
+		ans = 10000000;
+		comb(0);
+
+		System.out.println(totalCnt - wallCnt - ans);
+	}// end main
+
+	static void comb(int cnt) {
+		virusCnt = 0;
+		if (cnt == 3) {
+			visit = new boolean[n][m];
+			h: for (int i = 0; i < n; i++) {
+				for (int j = 0; j < m; j++) {
+					if (map[i][j] == 2 && !visit[i][j]) {
+						virusCnt++;
+						visit[i][j] = true;
+						addVirus(i, j);
+					}
+//					System.out.println("n*m = " + n * m + " virusCnt =" + virusCnt + "wallCnt = " + wallCnt);
+					if (n * m == virusCnt + wallCnt) {
+						break h;
 					}
 				}
 			}
+			ans = Math.min(ans, virusCnt);
+			return;
 		}
-		int cnt = 0;
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
-				if (b[i][j] == 0) {
-					cnt += 1;
+				if (map[i][j] == 0) {
+					map[i][j] = 1;
+					comb(cnt + 1);
+					map[i][j] = 0;
 				}
 			}
 		}
-		return cnt;
-	}
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
-		m = sc.nextInt();
-		a = new int[n][m];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				a[i][j] = sc.nextInt();
+	}// end comb
+
+	static void addVirus(int x, int y) {
+		for (int i = 0; i < 4; i++) {
+			int nx = x + di[i];
+			int ny = y + dj[i];
+			if (nx >= 0 && ny >= 0 && nx < n && ny < m && !visit[nx][ny]
+					&& (map[nx][ny] == 0 || map[nx][ny] == 2)) {
+				visit[nx][ny] = true;
+				virusCnt++;
+				addVirus(nx, ny);
+
 			}
 		}
-		int ans = 0;
-		for (int x1 = 0; x1 < n; x1++) {
-			for (int y1 = 0; y1 < m; y1++) {
-				if (a[x1][y1] != 0)
-					continue;
-				for (int x2 = 0; x2 < n; x2++) {
-					for (int y2 = 0; y2 < m; y2++) {
-						if (a[x2][y2] != 0)
-							continue;
-						for (int x3 = 0; x3 < n; x3++) {
-							for (int y3 = 0; y3 < m; y3++) {
-								if (a[x3][y3] != 0)
-									continue;
-								if (x1 == x2 && y1 == y2)
-									continue;
-								if (x1 == x3 && y1 == y3)
-									continue;
-								if (x2 == x3 && y2 == y3)
-									continue;
-								a[x1][y1] = 1;
-								a[x2][y2] = 1;
-								a[x3][y3] = 1;
-								int cur = bfs();
-								if (ans < cur)
-									ans = cur;
-								a[x1][y1] = 0;
-								a[x2][y2] = 0;
-								a[x3][y3] = 0;
-							}
-						}
-					}
-				}
-			}
-		}
-		System.out.println(ans);
 	}
 }

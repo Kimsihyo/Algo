@@ -3,81 +3,81 @@ import java.io.*;
 import java.util.*;
 
 public class Main_연구소 {
-	static int map[][], tmap[][], n, m, ans, dx[] = { 0, 1, 0, -1 }, dy[] = { 1, 0, -1, 0 }, wall;
-	static Queue<int[]> virus;
 
-	public static void main(String args[]) throws Exception {
+	static int n, m, total_wall, ans;
+	static int map[][];
+
+	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-
-		n = Integer.parseInt(st.nextToken());
-		m = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());// 세로
+		m = Integer.parseInt(st.nextToken());// 가로
 		map = new int[n][m];
-		virus = new LinkedList<int[]>();
-		wall =3;
+		total_wall = 0;
 		ans = 0;
+
 		for (int i = 0; i < n; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < m; j++) {
 				map[i][j] = Integer.parseInt(st.nextToken());
 				if (map[i][j] == 1) {
-					wall++;
+					total_wall++;
 				}
 			}
 		}
-		comb(0);
+		build(0,0,0);
 		System.out.println(ans);
-		br.close();
-	}
+	}// main_끝
 
-	static void comb(int cnt) {
+	static void build(int cnt, int x, int y) {
 		if (cnt == 3) {
-
-			diffusion();
-
+			
+			ans = Math.max(ans, n*m - addVirus()-total_wall-3);
+			
 			return;
 		}
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
+		for (int i = x; i < n; i++) {
+			for (int j = y; j < m; j++) {
 				if (map[i][j] == 0) {
 					map[i][j] = 1;
-					comb(cnt + 1);
+					build(cnt+1,i,j);
 					map[i][j] = 0;
 				}
 			}
 		}
-	}
+	}// 벽세우기 끝
 
-	static void diffusion() {
-		// 맵 복사
-		tmap = new int[n][m];
-		int init_virus = 0;
+	static int addVirus() {
+		Queue<int[]> q = new LinkedList<int[]>();
+		int[] di = { 0, 1, 0, -1 }, dj = { 1, 0, -1, 0 };
+		int[][] tmap = new int[n][m];
+		int virus = 0;
 		for (int i = 0; i < n; i++) {
-//			System.arraycopy(map[i], 0, tmap[i], 0, map[i].length);
 			for (int j = 0; j < m; j++) {
 				tmap[i][j] = map[i][j];
-				if(tmap[i][j] == 2) {
-					virus.add(new int[] {i,j});
-					init_virus++;
+				if (tmap[i][j] == 2) {
+					q.add(new int[] { i, j });
+					virus++;
 				}
 			}
 		}
-		int cnt =0 ;
-		while (!virus.isEmpty()) {
-			int[] temp = virus.remove();
+		while (!q.isEmpty()) {
+			int[] temp = q.remove();
 			int x = temp[0];
 			int y = temp[1];
 			for (int i = 0; i < 4; i++) {
-				int nx = x + dx[i];
-				int ny = y + dy[i];
-				if (nx >= 0 && ny >= 0 && nx < n && ny < m && tmap[nx][ny] == 0) {
+				int nx = x + di[i];
+				int ny = y + dj[i];
+				if (nx >= 0 && ny >= 0 && nx < n && ny < m 
+								&& tmap[nx][ny] == 0) {
 					tmap[nx][ny] = 2;
-					virus.add(new int[] { nx, ny });
-					cnt++;
+					q.add(new int[] {nx,ny});
+					virus++;
 				}
 			}
+			
 		}
-		int max = (n*m) - (wall+cnt+init_virus);
-		ans = Math.max(max, ans);
+		
+		return virus;
 	}
 }

@@ -1,66 +1,54 @@
 package algo;
-
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class Main_14889_스타트와링크 {
-	static int n,map[][],sum,ans,select,total,min;
-	static boolean chk[];
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		n = sc.nextInt();
+	static int n, ans;
+	static int[][] map;
+	static boolean[] arr;
+	public static void main(String[] args)throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		n = Integer.parseInt(br.readLine());
 		map = new int[n][n];
-		chk =new boolean[n];
-		for(int i=0;i<n;i++) {
-			for(int j=0;j<n;j++) {
-				map[i][j] = sc.nextInt();
-			}
-		}
-		select = n/2;
-		sum =0;
-		total = 0;
-		ans =0;
-		min = Integer.MAX_VALUE;
-		perm(0,0);
-		System.out.println(min);
-		sc.close();
-	}
-	static void perm(int x, int cho) {
-		if(select==cho) {
-			dfs();
-			return;
-			
-		}else {
-			for (int i =x; i < n; i++) {
-				if(!chk[i]) {
-					chk[i] = true;
-					cho++;
-					perm(i,cho);
-					chk[i] =false;
-					cho--;
-				}
-			}
-		}
-	}
-	
-	static void dfs() {
-		sum =0;
-		total =0;
+		arr = new boolean[n];
+		ans = Integer.MAX_VALUE;
+		StringTokenizer st;
 		for (int i = 0; i < n; i++) {
+			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < n; j++) {
-				if(chk[i] && chk[j]) {
-					sum += map[i][j];
-				}
-				if(!chk[i]&&!chk[j]) {
-					total += map[i][j];
+				map[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}//입력 완료
+		setTeam(0,0);
+		System.out.println(ans);
+		br.close();
+	}
+	static void setTeam(int cnt,int idx) {
+		if(cnt == n/2) {
+			int start = 0;
+			int link =0;
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					if(arr[i] && arr[j]) {
+						start += map[i][j];
+					}
+					if(!arr[i] && !arr[j]) {
+						link += map[i][j];
+					}
 				}
 			}
-		
+			ans = Math.min(ans, Math.abs(start-link));
+			return;
 		}
-		ans = Math.abs(sum-total);
-//		System.out.println(ans);
-		if(min > ans) {
-			min = ans;
+		for (int i = idx; i < n; i++) {
+			if(!arr[i]) {
+				arr[i] = true;
+				setTeam(cnt+1, i);
+				arr[i] = false;
+			}
 		}
+	}
+	static void score() {
+
 	}
 }
