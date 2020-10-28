@@ -1,4 +1,4 @@
-package blog;
+package algo;
 //package blog;
 //
 //import java.util.Arrays;
