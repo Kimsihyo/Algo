@@ -1,30 +1,36 @@
-package stack2;
+package 이론.stack2;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-// 중복순열 nPIr=n^r ex)6PI3=6*6*6=216
-public class Product {
+// 조합 nCr=nPr/r! ex)6C3=6*5*4/3*2*1=20
+public class Combination {
 	public static int n,r,caseCount,data[];
-	public static void product(int count) {
+	
+	public static void Combination(int before,int count) {
 		if(count==r) {
+			for(int i=0;i<r;i++) {
+				for(int j=i+1;j<r;j++) {
+					if(data[i]==data[j]) return;
+				}
+			}
 			caseCount++;
 			System.out.println(Arrays.toString(data));
 			return;
 		}
 		else{
-			for(int i=1;i<=n;i++) {
+			for(int i=before;i<=n;i++) {
 				data[count]=i;
-				product(count+1);
+				Combination(i,count+1);
 			}
 		}
 	}
 	public static void main(String[] args) {
 		Scanner sc=new Scanner(System.in);
-		n=4; // n=sc.nextInt();
+		n=5; // n=sc.nextInt();
 		r=2; // r=sc.nextInt();
 		data=new int[r];
-		product(0);
+		Combination(1,0);
 		System.out.println(caseCount);
 		sc.close();
 	}

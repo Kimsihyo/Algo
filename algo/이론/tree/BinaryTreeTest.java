@@ -1,4 +1,4 @@
-package tree;
+package 이론.tree;
 
 class BinaryTree{
 	class Node{

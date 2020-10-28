@@ -1,4 +1,4 @@
-package tree;
+package 이론.tree;
 
 class Tree {
 	class Node {

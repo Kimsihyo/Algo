@@ -1,4 +1,4 @@
-package stack2;
+package 이론.stack2;
 import java.util.Stack;
 public class In2Postfix {
    public static String msg = "(6+5*(2-8)/2)";

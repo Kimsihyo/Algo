@@ -1,4 +1,4 @@
-package stack;
+package 이론.stack;
 
 import java.io.FileInputStream;
 import java.util.Arrays;

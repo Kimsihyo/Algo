@@ -1,4 +1,4 @@
-package stack;
+package 이론.stack;
 
 public class StackTest {
 

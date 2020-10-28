@@ -1,4 +1,4 @@
-package stack2;
+package 이론.stack2;
 
 public class PermComb {
 
