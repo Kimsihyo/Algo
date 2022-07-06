@@ -18,7 +18,6 @@ public class Main_가운데를말해요 {
 			}
 			
 		});
-		
 		for(int i=0; i<n; i++) {
 			q.add(call_number[i]);
 		}
