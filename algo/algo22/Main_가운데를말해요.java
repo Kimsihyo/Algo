@@ -11,7 +11,7 @@ public class Main_가운데를말해요 {
 			call_number[i] = sc.nextInt();
 		}
 		PriorityQueue<Integer> q = new PriorityQueue<>(new Comparator<Integer>() {
-			
+			 
 			@Override
 			public int compare(Integer o1, Integer o2) {
 				return o2.compareTo(o1);
