@@ -11,30 +11,16 @@ public class Solution_자연수뒤집어배열로만들기 {
 	}
 
 	public static int[] solution(long n) {
-//		int[] answer = {};
-        String nString = n+"";
-        System.out.println(nString);
-        char[] answer = new char[nString.length()];
-        answer = nString.toCharArray();
-        System.out.println(answer);
-        PriorityQueue<Character> q = new PriorityQueue<Character>(new Comparator<Character>() {
-		
-        	@Override
-        	public int compare(Character o1, Character o2) {
-        		// TODO Auto-generated method stub
-        		return o2 - o1;
-        	}
-        	
-        });
-        for(int i=0; i<answer.length; i++) {
-        	q.add(answer[i]);
+        String nString = String.valueOf(n);
+        // System.out.println(nString);
+        char[] saveNumber = new char[nString.length()];
+        saveNumber = nString.toCharArray();
+        int[] answer = new int[nString.length()];
+        int cnt = nString.length()-1;
+        for(int i=0; i<saveNumber.length; i++){
+            System.out.println(saveNumber[cnt - i] - '0');
+            answer[i] = saveNumber[cnt - i] - '0';
         }
-        
-        System.out.println(q);
-        
-        
-        
-        
-		return null;
+        return answer;
 	}
 }
