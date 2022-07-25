@@ -1,30 +1,27 @@
 package algo22;
 
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Solution_큰수만들기 {
     
 	public static void main(String[] args) {
-		solution("1231234", 3);
+		solution(4);
 	}
 
-	public static String solution(String number, int k) {
-        StringBuilder answer = new StringBuilder("");
-        int len = number.length() - k;
-        int start = 0;
-        
-        while(start < number.length() && answer.length() != len) {
-        	int leftNum = k + answer.length() + 1;
-        	int max = 0;
-        	for(int j = start; j < leftNum; j++) {
-        		if (max < number.charAt(j) - '0') {
-                    max = number.charAt(j) - '0';
-                    start = j + 1;
-                }
+	public static long solution(long n) {
+        long answer = 0;
+        for(long i=1; i<=n; i++) {
+        	if(i*i == n) {
+        		answer=i;
+        		break;
         	}
-        	answer.append(Integer.toString(max));
         }
-        return answer.toString();
+        if(answer == 0) answer = -1;
+        else {
+        	answer += 1;
+        	answer *= answer;
+        }
+        System.out.println(answer);
+        return answer;
 	}
 }
