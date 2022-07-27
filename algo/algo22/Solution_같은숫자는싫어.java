@@ -19,7 +19,6 @@ public class Solution_같은숫자는싫어 {
         for(int i=0; i<list.size();i++){
             answer[i] = list.get(i);
         }
-        list.
         return null;
 	}
 }
